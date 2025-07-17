@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Services\AuthService;
 use App\Traits\CustomApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,19 +14,20 @@ class AuthController extends Controller
 {
     use CustomApiResponse;
 
-    public function login(LoginRequest $request)
+    protected $authService;
+
+    public function __construct(AuthService $authService)
     {
-        $credentials = $request->only('email', 'password');
-        $hasToken = Auth::guard('api')->attempt($credentials);
-        if (!$hasToken) {
-            return $this->errorResponse([],__('auth.failed'), 401);
-        }
-        return $this->responseWithToken($hasToken);
+        $this->authService = $authService;
     }
 
-    public function logout()
+    public function login(LoginRequest $request)
     {
-        Auth::guard('api')->logout();
-        return $this->successResponse(__('success.logout_success'));
+        return $this->authService->login($request, true);
+    }
+
+    public function logout(Request $request)
+    {
+        return $this->authService->logout($request, true);
     }
 }

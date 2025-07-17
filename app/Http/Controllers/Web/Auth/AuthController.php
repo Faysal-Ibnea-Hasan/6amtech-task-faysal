@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,6 +15,13 @@ use Inertia\Inertia;
 
 class AuthController extends Controller
 {
+    protected $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     public function renderLoginForm()
     {
         return Inertia::render('Auth/Login', [
@@ -24,16 +32,7 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->only(['email', 'password']);
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/dashboard')->with('success', __('success.login_success', ['attribute' => Auth::user()->name]));
-        }
-
-        return back()->withErrors([
-            'error' => __('auth.failed')
-        ])->onlyInput('email');
+        return $this->authService->login($request);
     }
 
     public function renderRegisterForm()
@@ -43,22 +42,11 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => Role::User,
-        ]);
-
-        Auth::login($user);
-        return redirect('/dashboard')->with('success', __('success.register_success', ['attribute' => Auth::user()->name]));
+        return $this->authService->register($request);
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/')->with('success', __('success.logout_success'));
+        return $this->authService->logout($request);
     }
 }
