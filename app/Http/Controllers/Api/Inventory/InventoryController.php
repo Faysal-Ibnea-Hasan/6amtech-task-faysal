@@ -38,6 +38,7 @@ class InventoryController extends Controller
     {
         $startTime = microtime(true);
         $products = Product::with('category')->get();
+
         $formattedProducts = $products->map(function ($product) {
             return [
                 'id' => $product->id,
@@ -51,7 +52,7 @@ class InventoryController extends Controller
         $endTime = microtime(true);
         $executionTime = ($endTime - $startTime);
         return response()->json([
-            'message' => 'Optimized product list (Eager Loading)',
+            'message' => 'Optimized product list after optimizing',
             'execution_time(seconds)' => round($executionTime, 4),
             'products' => $formattedProducts->count(),
         ]);

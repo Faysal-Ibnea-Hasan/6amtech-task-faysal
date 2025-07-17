@@ -1,62 +1,687 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Setup Instructions
 
-## About Laravel
+Follow these steps to get the application up and running on your local machine.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Prerequisites
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Ensure you have the following installed:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+  * **PHP:** Version 8.2 or higher
+  * **Composer:** Latest stable version
+  * **Node.js:** Version 16 or higher
+  * **NPM / Yarn:** Latest stable version
+  * **Database:** MySQL (recommended)
 
-## Learning Laravel
+### Installation Steps
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1.  **Clone the Repository:**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    ```bash
+    https://github.com/Faysal-Ibnea-Hasan/6amtech-task-faysal.git
+    cd 6amtech-task-faysal
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2.  **Install PHP Dependencies:**
 
-## Laravel Sponsors
+    ```bash
+    composer install
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+3.  **Install Node.js Dependencies:**
 
-### Premium Partners
+    ```bash
+    npm install 
+    ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+4.  **Create `.env` File:**
 
-## Contributing
+    ```bash
+    cp .env.example .env
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5.  **Generate Application Key:**
 
-## Code of Conduct
+    ```bash
+    php artisan key:generate
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+6.  **Run Database Migrations and Seeders:**
+    This will set up your database tables and populate them with initial data, including a large dataset for testing performance optimizations.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    ```bash
+    php artisan migrate:fresh --seed
+    ```
 
-## License
+    *Note: The seeding process may take a few minutes due to the large amount of dummy data being generated for inventory and transactions.*
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# 6amtech-task-faysal
+7.  **Build Frontend Assets:**
+
+    ```bash
+    npm run dev 
+    # or
+    npm run build 
+    ```
+
+8.  **Start the Local Development Server:**
+
+    ```bash
+    php artisan serve
+    ```
+
+You can now access the application in your browser at `http://127.0.0.1:8000`.
+
+-----
+
+## Environment Configuration Details
+
+After running `cp .env.example .env`, you need to configure the following variables in your `.env` file.
+
+### Application Configuration
+
+  * **`APP_NAME`**: Your Project Name
+  * **`APP_ENV`**: `local` (for development), `production` (for deployment)
+  * **`APP_KEY`**: (Generated by `php artisan key:generate`)
+  * **`APP_DEBUG`**: `true` (for development), `false` (for production)
+  * **`APP_URL`**: `http://localhost`
+
+### Database Configuration
+
+  * **`DB_CONNECTION`**: `mysql`
+  * **`DB_HOST`**: `127.0.0.1` (or your database host)
+  * **`DB_PORT`**: `3306` (MySQL)
+  * **`DB_DATABASE`**: Database name
+  * **`DB_USERNAME`**: Database user 
+  * **`DB_PASSWORD`**: Database password
+
+### JWT Authentication Configuration
+
+  * **`JWT_SECRET`**: (Required for JWT token generation and validation. Generate using `php artisan jwt:secret`)
+
+-----
+
+## Deployment Steps
+
+These steps outline a typical deployment process for a Laravel application to a production server. This assumes a Linux-based server (e.g., Ubuntu) with Nginx/Apache, PHP-FPM, and Composer installed.
+
+### 1\. Server Preparation
+
+  * **Install Dependencies:** Ensure PHP (with necessary extensions), Composer, Node.js, NPM, Git, Nginx/Apache, and your chosen database (MySQL/PostgreSQL) are installed and configured.
+  * **Create Database:** Create a dedicated database and user for your application on the production server.
+
+### 2\. Code Deployment
+
+  * **Clone Repository (on server):**
+
+    ```bash
+    git clone https://github.com/Faysal-Ibnea-Hasan/6amtech-task-faysal.git /var/www/6amtech-task-faysal
+    cd /var/www/6amtech-task-faysal
+    ```
+
+  * **Install PHP Dependencies:**
+
+    ```bash
+    composer install --optimize-autoloader --no-dev
+    ```
+
+    *The `--no-dev` flag ensures development-only dependencies are not installed, and `--optimize-autoloader` speeds up class loading.*
+
+  * **Install Node.js Dependencies & Build Assets:**
+
+    ```bash
+    npm install --production # or yarn install --production
+    npm run build # Build production-ready frontend assets
+    ```
+
+### 3\. Environment Configuration
+
+  * **Create `.env`:** Copy `.env.example` to `.env`.
+  * **Configure `.env` for Production:**
+      * Set `APP_ENV=production`
+      * Set `APP_DEBUG=false`
+      * Set `APP_URL` to your production domain (e.g., `https://your-domain.com`)
+      * Update `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` with production database credentials.
+      * Generate `APP_KEY` and `JWT_SECRET` if not already present from your development setup.
+        ```bash
+        php artisan key:generate
+        php artisan jwt:secret
+        ```
+      * Configure `CACHE_DRIVER` and `QUEUE_CONNECTION` to `redis` or `memcached` / `database` respectively for better performance.
+
+### 4\. Storage Linking & Permissions
+
+  * **Create Storage Link:**
+    ```bash
+    php artisan storage:link
+    ```
+  * **Set Permissions:** Ensure the web server user has write permissions to the `storage` and `bootstrap/cache` directories.
+    ```bash
+    sudo chown -R www-data:www-data /var/www/6amtech-task-faysal
+    sudo chmod -R 775 /var/www/6amtech-task-faysal/storage
+    sudo chmod -R 775 /var/www/6amtech-task-faysal/bootstrap/cache
+    ```
+    *(Adjust `www-data` to your web server user, e.g., `nginx` or `apache`.)*
+
+### 5\. Database Setup
+
+  * **Run Migrations:**
+
+    ```bash
+    php artisan migrate --force
+    ```
+
+    *The `--force` flag is required in production to confirm you want to run migrations.*
+
+  * **Run Seeders:**
+
+    ```bash
+    php artisan db:seed
+    ```
+
+### 6\. Web Server Configuration (Nginx Example)
+
+Create a new Nginx server block configuration for your domain:
+
+```nginx
+server {
+    listen 80;
+    listen [::]:80;
+    server_name your-domain.com www.your-domain.com;
+    root /var/www/6amtech-task-faysal/public;
+
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options "nosniff";
+
+    index index.php index.html index.htm;
+
+    charset utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock; # Adjust PHP version
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}
+```
+
+  * **Enable Site:**
+    ```bash
+    sudo ln -s /etc/nginx/sites-available/your-domain.com /etc/nginx/sites-enabled/
+    ```
+  * **Test Nginx Configuration:**
+    ```bash
+    sudo nginx -t
+    ```
+  * **Restart Nginx:**
+    ```bash
+    sudo systemctl restart nginx
+    ```
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Task 2
+
+I can certainly help you generate a `README.md` file for your Task Management API based on the code you provided\!
+
+Here's a comprehensive `README.md` structure that incorporates proper validation, error handling, and overall API usage, similar to the previous example, but ready to be pasted directly into a `README.md` file.
+
+````markdown
+# Task Management API
+
+This API provides endpoints for managing tasks, allowing authenticated users to create, retrieve, update, and delete their tasks. It includes robust validation and consistent error handling for a smooth developer experience.
+
+---
+
+## 🚀 Getting Started
+
+To use this API, ensure you have a Laravel environment set up and the necessary dependencies installed.
+
+### Prerequisites
+
+* PHP >= 8.1
+* Composer
+* Laravel Framework
+* A database (MySQL, PostgreSQL, etc.)
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repository-url> # Replace with your actual repository URL
+    cd task-management-api
+    ```
+2.  **Install Composer dependencies:**
+    ```bash
+    composer install
+    ```
+3.  **Set up your `.env` file:**
+    Copy `.env.example` to `.env` and configure your database connection and other environment variables.
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+4.  **Run database migrations:**
+    ```bash
+    php artisan migrate
+    ```
+5.  **(Optional) Seed the database:**
+    If you have seeders for users or tasks:
+    ```bash
+    php artisan db:seed
+    ```
+6.  **Start the development server:**
+    ```bash
+    php artisan serve
+    ```
+
+---
+
+## 🔐 Authentication
+
+This API uses **JWT (JSON Web Tokens)** for authentication. You'll need to obtain a token to access most endpoints.
+
+**Endpoint:** `POST /api/auth/login` (or your configured login endpoint, e.g., `/api/login`)
+
+**Request Body Example:**
+
+```json
+{
+    "email": "user@example.com",
+    "password": "password"
+}
+````
+
+**Successful Response Example:**
+
+```json
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+    "token_type": "bearer",
+    "expires_in": 3600
+}
+```
+
+Include the obtained `token` in the `Authorization` header of all subsequent requests:
+
+`Authorization: Bearer <your_jwt_token>`
+
+-----
+
+## 📝 API Endpoints
+
+All task-related endpoints are prefixed with `/api/tasks`.
+
+### 1\. Get All Tasks (`GET /api/tasks`)
+
+Retrieves all tasks belonging to the authenticated user.
+
+  * **Authentication:** Required
+  * **Response:**
+      * **Success (200 OK):** A list of tasks.
+        ```json
+        {
+            "success": true,
+            "message": "Tasks fetched successfully.",
+            "data": [
+                {
+                    "id": 1,
+                    "title": "Fix bug in login",
+                    "description": "User login failing on production.",
+                    "status": "pending",
+                    "expire_date": "2025-07-30 23:59:59",
+                    "created_at": "2025-07-17 10:00:00",
+                    "assignee": {
+                        "id": 2,
+                        "name": "John Doe",
+                        "email": "john.doe@example.com"
+                    },
+                    "assigner": {
+                        "id": 1,
+                        "name": "Alice Smith",
+                        "email": "alice.smith@example.com"
+                    }
+                }
+            ]
+        }
+        ```
+      * **No Content (200 OK):** If no tasks are found for the user.
+        ```json
+        {
+            "success": true,
+            "message": "No content.",
+            "data": []
+        }
+        ```
+      * **Error (404 Not Found):** If the authenticated user cannot be found (unlikely if token is valid).
+        ```json
+        {
+            "success": false,
+            "message": "User not found.",
+            "errors": []
+        }
+        ```
+
+### 2\. Create a New Task (`POST /api/tasks`)
+
+Creates a new task for the authenticated user.
+
+  * **Authentication:** Required
+  * **Request Body:**
+      * `title` (string, required): The title of the task. Max 255 characters.
+      * `description` (string, nullable): A detailed description of the task.
+      * `status` (string, nullable): The status of the task. Must be one of: `pending`, `in_progress`, `completed`, `cancelled`. Defaults to `pending` if not provided.
+      * `expire_date` (date, nullable): The expiry date of the task. Must be today or a future date (`YYYY-MM-DD`).
+  * **Example Request Body:**
+    ```json
+    {
+        "title": "Implement user profile page",
+        "description": "Design and develop the user profile UI and backend.",
+        "status": "in_progress",
+        "expire_date": "2025-08-15"
+    }
+    ```
+  * **Response:**
+      * **Success (201 Created):** The newly created task.
+        ```json
+        {
+            "success": true,
+            "message": "Task created successfully.",
+            "data": {
+                "id": 2,
+                "title": "Implement user profile page",
+                "description": "Design and develop the user profile UI and backend.",
+                "status": "in_progress",
+                "expire_date": "2025-08-15 00:00:00",
+                "created_at": "2025-07-17 11:00:00",
+                "assignee": null,
+                "assigner": { /* User details */ }
+            }
+        }
+        ```
+      * **Error (422 Unprocessable Entity):** If validation fails. See **Validation and Error Handling** section.
+        ```json
+        {
+            "success": false,
+            "errors": {
+                "title": [
+                    "The title field is required."
+                ],
+                "expire_date": [
+                    "The expire date must be a date after or equal to today."
+                ]
+            }
+        }
+        ```
+
+### 3\. Get a Specific Task (`GET /api/tasks/{id}`)
+
+Retrieves a single task by its ID, provided it belongs to the authenticated user.
+
+  * **Authentication:** Required
+  * **Path Parameters:**
+      * `id` (integer, required): The ID of the task.
+  * **Response:**
+      * **Success (200 OK):** The requested task.
+        ```json
+        {
+            "success": true,
+            "message": "Task fetched successfully.",
+            "data": {
+                "id": 1,
+                "title": "Fix bug in login",
+                "description": "User login failing on production.",
+                "status": "pending",
+                "expire_date": "2025-07-30 23:59:59",
+                "created_at": "2025-07-17 10:00:00",
+                "assignee": { /* Assignee details */ },
+                "assigner": { /* Assigner details */ }
+            }
+        }
+        ```
+      * **Error (404 Not Found):** If the task with the given ID does not exist.
+        ```json
+        {
+            "success": false,
+            "message": "Task not found.",
+            "errors": []
+        }
+        ```
+      * **Error (403 Forbidden):** If the task exists but does not belong to the authenticated user.
+        ```json
+        {
+            "success": false,
+            "message": "You are not authorized to access this task.",
+            "errors": []
+        }
+        ```
+
+### 4\. Update an Existing Task (`PUT /api/tasks/{id}`)
+
+Updates an existing task by its ID, provided it belongs to the authenticated user.
+
+  * **Authentication:** Required
+  * **Path Parameters:**
+      * `id` (integer, required): The ID of the task to update.
+  * **Request Body:** (Same as Create Task, but all fields are optional for partial updates)
+      * `title` (string, optional)
+      * `description` (string, optional)
+      * `status` (string, optional)
+      * `expire_date` (date, optional)
+  * **Example Request Body:**
+    ```json
+    {
+        "status": "completed",
+        "expire_date": "2025-07-20"
+    }
+    ```
+  * **Response:**
+      * **Success (200 OK):** The updated task.
+        ```json
+        {
+            "success": true,
+            "message": "Task updated successfully.",
+            "data": {
+                "id": 1,
+                "title": "Fix bug in login",
+                "description": "User login failing on production.",
+                "status": "completed",
+                "expire_date": "2025-07-20 00:00:00",
+                "created_at": "2025-07-17 10:00:00",
+                "assignee": { /* Assignee details */ },
+                "assigner": { /* Assigner details */ }
+            }
+        }
+        ```
+      * **Error (404 Not Found):** If the task does not exist.
+      * **Error (403 Forbidden):** If the task does not belong to the authenticated user.
+      * **Error (422 Unprocessable Entity):** If validation fails.
+      * **Error (500 Internal Server Error):** If the update operation fails for an unexpected reason.
+        ```json
+        {
+            "success": false,
+            "message": "Failed to update task.",
+            "errors": []
+        }
+        ```
+
+### 5\. Delete a Task (`DELETE /api/tasks/{id}`)
+
+Deletes a task by its ID, provided it belongs to the authenticated user.
+
+  * **Authentication:** Required
+  * **Path Parameters:**
+      * `id` (integer, required): The ID of the task to delete.
+  * **Response:**
+      * **Success (200 OK):** No data returned, only a success message.
+        ```json
+        {
+            "success": true,
+            "message": "Task deleted successfully.",
+            "data": []
+        }
+        ```
+      * **Error (404 Not Found):** If the task does not exist.
+      * **Error (403 Forbidden):** If the task does not belong to the authenticated user.
+      * **Error (500 Internal Server Error):** If the delete operation fails for an unexpected reason.
+        ```json
+        {
+            "success": false,
+            "message": "Failed to delete task.",
+            "errors": []
+        }
+        ```
+
+-----
+
+## ✅ Validation and Error Handling
+
+This API implements robust validation using Laravel's Form Requests (`StoreRequest`, `UpdateRequest`) and consistent error handling via the `CustomApiResponse` trait.
+
+### Validation Errors (422 Unprocessable Entity)
+
+When a request fails validation, the API will return a `422 Unprocessable Entity` status code with a standardized error structure:
+
+```json
+{
+    "success": false,
+    "errors": {
+        "field_name": [
+            "Error message for field_name 1",
+            "Error message for field_name 2"
+        ],
+        "another_field": [
+            "Error message for another_field"
+        ]
+    }
+}
+```
+
+**Common Validation Rules & Custom Messages:**
+
+  * **`title`**: `required`, `string`, `max:255`
+  * **`description`**: `nullable`, `string`
+  * **`status`**: `nullable`, `string`, `Rule::in(TaskStatus::values())` (Ensures status is one of the predefined enum values like `pending`, `in_progress`, `completed`, `cancelled`). Custom message: `validation.enum`
+  * **`expire_date`**: `nullable`, `date`, `after_or_equal:today` (Ensures the date is not in the past relative to the server's current date, which is **Friday, July 18, 2025**). Custom message: `validation.after_or_equal`
+
+### Custom API Responses
+
+The `CustomApiResponse` trait provides standardized JSON responses for consistency:
+
+  * **`successResponse($data, $message, $status)`**: Used for successful operations.
+    ```json
+    {
+        "success": true,
+        "message": "Operation successful.",
+        "data": { /* ... your data ... */ }
+    }
+    ```
+  * **`errorResponse($errors, $message, $status)`**: Used for errors (e.g., resource not found, unauthorized, internal server errors).
+    ```json
+    {
+        "success": false,
+        "message": "An error occurred.",
+        "errors": { /* ... error details ... */ }
+    }
+    ```
+
+### Specific Error Scenarios Handled:
+
+  * **404 Not Found**:
+      * `"User not found."`
+      * `"Task not found."`
+  * **403 Forbidden**:
+      * `"You are not authorized to access this task."`
+  * **500 Internal Server Error**:
+      * `"Failed to update task."`
+      * `"Failed to delete task."`
+
+-----
+
+## 🛠️ Code Structure Overview
+
+  * **`App\Http\Controllers\Api\Task\TaskController.php`**: Handles incoming HTTP requests, orchestrates business logic, and returns API responses.
+      * Uses `CustomApiResponse` trait for consistent JSON responses.
+      * `getAuthUser()`: Helper to retrieve the authenticated user.
+      * `belongsToAuthUser()`: Helper to check task ownership.
+  * **`App\Http\Requests\Task\StoreRequest.php`**: Defines validation rules for creating new tasks.
+  * **`App\Http\Requests\Task\UpdateRequest.php`**: Defines validation rules for updating existing tasks.
+      * Both `StoreRequest` and `UpdateRequest` include:
+          * `authorize()`: Ensures only authenticated API users can make the request.
+          * `rules()`: Defines the validation rules for each input field.
+          * `messages()`: Provides custom error messages for specific validation failures.
+          * `failedValidation()`: Overrides the default Laravel behavior to return JSON validation errors for API requests.
+  * **`App\Http\Resources\TaskResource.php`**: Transforms `Task` model instances into a standardized JSON format for API responses, including relationships (assignee, assigner).
+  * **`App\Models\Task.php`**: Eloquent model representing tasks, with relationships to `User` for assigner and assignee.
+  * **`App\Traits\CustomApiResponse.php`**: A reusable trait providing helper methods for generating consistent success, error, and token responses across API controllers.
+  * **`App\Enums\TaskStatus.php`**: An enum defining the valid statuses for a task, ensuring data integrity. (Assuming you have this enum defined and used for `TaskStatus::values()`).
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Task 3
+
+## Database Optimization
+
+For the Inventory Management System, particular attention has been paid to database query optimization, especially when dealing with potentially large datasets for `Products` and `Transactions`. This ensures the application remains performant and scalable.
+
+### 1. Eager Loading (N+1 Problem Resolution)
+
+**Problem:** A common performance anti-pattern is the "N+1 problem." This occurs when querying a list of parent records (the "1" query) and then, for each parent record, executing a separate query to fetch its associated child records (the "N" queries). For example, fetching 5,000 products and then 5,000 separate queries to get each product's category.
+
+**Solution:** **Eager loading** was implemented using Laravel Eloquent's `with()` method. Instead of N+1 queries, eager loading fetches all parent records in one query and all related child records in a *single separate query*. This reduces the total query count to just 2, regardless of the number of records.
+
+* **Example (Before Optimization):**
+You can hit the route to postman or browser: http://127.0.0.1:8000/api/inventory/before 
+    ```php
+    $products = Product::all();
+    foreach ($products as $product) {
+        echo $product->category->name;
+    }
+    ```
+{
+  "message": "Product list before optimizing",
+  "execution_time(seconds)": 3.0497,
+  "products": 5000
+}
+    
+*Observed in Debugbar: 1 (products) + N (categories) queries*
+
+
+* **Example (After Optimization):**
+You can hit the route to postman or browser: http://127.0.0.1:8000/api/inventory/after 
+    ```php
+    $products = Product::with('category')->get();
+    foreach ($products as $product) {
+        echo $product->category->name;
+    }
+    ```
+{
+  "message": "Optimized product list after optimizing",
+  "execution_time(seconds)": 0.3059,
+  "products": 5000
+}
+    
+*Observed in Debugbar: 2 queries (1 for products, 1 for all relevant categories)*
+
+This optimization drastically improves response times for listing operations involving relationships.
+
+### 2. Database Indexing
+
+**Purpose:** Database indexes are special lookup tables that the database search engine can use to speed up data retrieval. They are particularly effective on columns that are frequently used in `WHERE` clauses, `JOIN` conditions, or `ORDER BY` clauses.
+
+**Implementation:**
+* **Foreign Keys:** All foreign key columns (`category_id` on `products`, `user_id` and `product_id` on `transactions`) were implicitly indexed by Laravel's `foreignId()` method in the migrations. This is crucial for efficient joins and relationship lookups.
+* **Unique Columns:** Columns defined as `unique()` (e.g., `products.name`, `categories.name`) also automatically receive an index, speeding up lookups and ensuring data integrity.
+* **Considerations:** While beneficial, excessive indexing can slow down write (INSERT/UPDATE/DELETE) operations, as indexes also need to be updated. A balance is maintained by indexing only the most critical lookup fields.
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
