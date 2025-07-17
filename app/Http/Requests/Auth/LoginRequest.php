@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
@@ -39,5 +41,18 @@ class LoginRequest extends FormRequest
                 'password.min' => __('validation.min.string'),
                 'password.max' => __('validation.max.string'),
             ];
+    }
+
+    public function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        if ($this->expectsJson() || $this->is('api/*')) {
+            throw new HttpResponseException(response()->json([
+                'status' => false,
+                'errors' => $validator->errors(),
+            ], 422));
+        }
+
+        throw (new ValidationException($validator))
+            ->redirectTo($this->getRedirectUrl());
     }
 }

@@ -1,7 +1,7 @@
 import './bootstrap';
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
-import '../css/app.css' // ✅ Import your Tailwind CSS file
+import '../css/app.css'
 
 createInertiaApp({
     resolve: name => {

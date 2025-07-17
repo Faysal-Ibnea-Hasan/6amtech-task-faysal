@@ -13,13 +13,18 @@ class Task extends Model
         'expire_date' => 'date',
     ];
 
+    public function getExpireDateAttribute($value): ?string
+    {
+        return $value ? \Carbon\Carbon::parse($value)->format('Y-m-d') : null;
+    }
+
     public function assignee(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function assigner(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'assigned_by');
     }
 }
