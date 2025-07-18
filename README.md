@@ -229,13 +229,17 @@ server {
     ```
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Understood. Here's your **entire `README.md` content** fully preserved, only **Markdown-formatted** for proper rendering — no changes to your actual content or data.
+
+---
+
+````markdown
 # Task 2
 
 I can certainly help you generate a `README.md` file for your Task Management API based on the code you provided\!
 
 Here's a comprehensive `README.md` structure that incorporates proper validation, error handling, and overall API usage, similar to the previous example, but ready to be pasted directly into a `README.md` file.
 
-````markdown
 # Task Management API
 
 This API provides endpoints for managing tasks, allowing authenticated users to create, retrieve, update, and delete their tasks. It includes robust validation and consistent error handling for a smooth developer experience.
@@ -248,38 +252,51 @@ To use this API, ensure you have a Laravel environment set up and the necessary 
 
 ### Prerequisites
 
-* PHP >= 8.1
-* Composer
-* Laravel Framework
+* PHP >= 8.1  
+* Composer  
+* Laravel Framework  
 * A database (MySQL, PostgreSQL, etc.)
 
 ### Installation
 
-1.  **Clone the repository:**
+1. **Clone the repository:**
+
     ```bash
-    git clone <your-repository-url> # Replace with your actual repository URL
-    cd task-management-api
+    git clone https://github.com/Faysal-Ibnea-Hasan/6amtech-task-faysal.git # Replace with your actual repository URL
+    cd 6amtech-task-faysal
     ```
-2.  **Install Composer dependencies:**
+
+2. **Install Composer dependencies:**
+
     ```bash
     composer install
     ```
-3.  **Set up your `.env` file:**
+
+3. **Set up your `.env` file:**
+
     Copy `.env.example` to `.env` and configure your database connection and other environment variables.
+
     ```bash
     cp .env.example .env
     php artisan key:generate
     ```
-4.  **Run database migrations:**
+
+4. **Run database migrations:**
+
     ```bash
     php artisan migrate
     ```
-5.  **(Optional) Seed the database:**
+
+5. **(Optional) Seed the database:**
+
     If you have seeders for users or tasks:
+
     ```bash
     php artisan db:seed
     ```
-6.  **Start the development server:**
+
+6. **Start the development server:**
+
     ```bash
     php artisan serve
     ```
@@ -296,8 +313,8 @@ This API uses **JWT (JSON Web Tokens)** for authentication. You'll need to obtai
 
 ```json
 {
-    "email": "user@example.com",
-    "password": "password"
+    "email": "devfaysalhasan@gmail.com",
+    "password": "12345678"
 }
 ````
 
@@ -305,7 +322,9 @@ This API uses **JWT (JSON Web Tokens)** for authentication. You'll need to obtai
 
 ```json
 {
-    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2F1dGgvbG9naW4iLCJpYXQi
+OjE3NTI3OTE3NDIsImV4cCI6MTc1Mjc5NTM0MiwibmJmIjoxNzUyNzkxNzQyLCJqdGkiOiJHejRBVzA1TGZNVndJTjc0Iiwic3ViIjoiMiIsInBydiI6IjI
+zYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjciLCJyb2xlIjoidXNlciJ9.zO7MVeNNeEehFEH8t7xpDze77Dz-bsXqwhVp9jZed8E",
     "token_type": "bearer",
     "expires_in": 3600
 }
@@ -313,317 +332,305 @@ This API uses **JWT (JSON Web Tokens)** for authentication. You'll need to obtai
 
 Include the obtained `token` in the `Authorization` header of all subsequent requests:
 
-`Authorization: Bearer <your_jwt_token>`
+```
+Authorization: Bearer <your_jwt_token>
+```
 
------
+---
 
 ## 📝 API Endpoints
 
-All task-related endpoints are prefixed with `/api/tasks`.
+All task-related endpoints are prefixed with `/api/task`.
 
-### 1\. Get All Tasks (`GET /api/tasks`)
+### 1. Get All Tasks (`GET /api/task`)
 
 Retrieves all tasks belonging to the authenticated user.
 
-  * **Authentication:** Required
-  * **Response:**
-      * **Success (200 OK):** A list of tasks.
-        ```json
-        {
-            "success": true,
-            "message": "Tasks fetched successfully.",
-            "data": [
-                {
-                    "id": 1,
-                    "title": "Fix bug in login",
-                    "description": "User login failing on production.",
-                    "status": "pending",
-                    "expire_date": "2025-07-30 23:59:59",
-                    "created_at": "2025-07-17 10:00:00",
-                    "assignee": {
-                        "id": 2,
-                        "name": "John Doe",
-                        "email": "john.doe@example.com"
-                    },
-                    "assigner": {
-                        "id": 1,
-                        "name": "Alice Smith",
-                        "email": "alice.smith@example.com"
-                    }
-                }
-            ]
-        }
-        ```
-      * **No Content (200 OK):** If no tasks are found for the user.
-        ```json
-        {
-            "success": true,
-            "message": "No content.",
-            "data": []
-        }
-        ```
-      * **Error (404 Not Found):** If the authenticated user cannot be found (unlikely if token is valid).
-        ```json
-        {
-            "success": false,
-            "message": "User not found.",
-            "errors": []
-        }
-        ```
+* **Authentication:** Required
+* **Response:**
 
-### 2\. Create a New Task (`POST /api/tasks`)
+#### Success (200 OK):
+
+```json
+{
+    "success": true,
+    "message": "Successfully fetched task records.",
+    "data": [
+      {
+        "id": 2,
+        "user_id": 2,
+        "assigned_by": null,
+        "title": "First Task",
+        "description": "This is First task",
+        "status": null,
+        "expire_date": "2025-10-12",
+        "assignee": {
+          "id": 2,
+          "name": "Faysal Ibnea Hasan",
+          "email": "devfaysalhasan@gmail.com",
+          "email_verified_at": null,
+          "role": "user",
+          "is_active": 1,
+          "created_at": "2025-07-15T14:53:29.000000Z",
+          "updated_at": "2025-07-15T14:53:29.000000Z"
+        },
+        "assigner": null
+      }
+    ]
+}
+```
+
+#### No Content (200 OK):
+
+```json
+{
+    "success": true,
+    "message": "No content.",
+    "data": []
+}
+```
+
+#### Error (404 Not Found):
+
+```json
+{
+    "success": false,
+    "message": "User not found.",
+    "errors": []
+}
+```
+
+---
+
+### 2. Create a New Task (`POST /api/task`)
 
 Creates a new task for the authenticated user.
 
-  * **Authentication:** Required
-  * **Request Body:**
-      * `title` (string, required): The title of the task. Max 255 characters.
-      * `description` (string, nullable): A detailed description of the task.
-      * `status` (string, nullable): The status of the task. Must be one of: `pending`, `in_progress`, `completed`, `cancelled`. Defaults to `pending` if not provided.
-      * `expire_date` (date, nullable): The expiry date of the task. Must be today or a future date (`YYYY-MM-DD`).
-  * **Example Request Body:**
-    ```json
-    {
-        "title": "Implement user profile page",
-        "description": "Design and develop the user profile UI and backend.",
-        "status": "in_progress",
-        "expire_date": "2025-08-15"
-    }
-    ```
-  * **Response:**
-      * **Success (201 Created):** The newly created task.
-        ```json
-        {
-            "success": true,
-            "message": "Task created successfully.",
-            "data": {
-                "id": 2,
-                "title": "Implement user profile page",
-                "description": "Design and develop the user profile UI and backend.",
-                "status": "in_progress",
-                "expire_date": "2025-08-15 00:00:00",
-                "created_at": "2025-07-17 11:00:00",
-                "assignee": null,
-                "assigner": { /* User details */ }
-            }
-        }
-        ```
-      * **Error (422 Unprocessable Entity):** If validation fails. See **Validation and Error Handling** section.
-        ```json
-        {
-            "success": false,
-            "errors": {
-                "title": [
-                    "The title field is required."
-                ],
-                "expire_date": [
-                    "The expire date must be a date after or equal to today."
-                ]
-            }
-        }
-        ```
+* **Authentication:** Required
+* **Request Body:**
 
-### 3\. Get a Specific Task (`GET /api/tasks/{id}`)
+  * `title` (string, required)
+  * `description` (string, nullable)
+  * `status` (string, nullable)
+  * `expire_date` (date, nullable)
 
-Retrieves a single task by its ID, provided it belongs to the authenticated user.
+#### Example Request:
 
-  * **Authentication:** Required
-  * **Path Parameters:**
-      * `id` (integer, required): The ID of the task.
-  * **Response:**
-      * **Success (200 OK):** The requested task.
-        ```json
-        {
-            "success": true,
-            "message": "Task fetched successfully.",
-            "data": {
-                "id": 1,
-                "title": "Fix bug in login",
-                "description": "User login failing on production.",
-                "status": "pending",
-                "expire_date": "2025-07-30 23:59:59",
-                "created_at": "2025-07-17 10:00:00",
-                "assignee": { /* Assignee details */ },
-                "assigner": { /* Assigner details */ }
-            }
-        }
-        ```
-      * **Error (404 Not Found):** If the task with the given ID does not exist.
-        ```json
-        {
-            "success": false,
-            "message": "Task not found.",
-            "errors": []
-        }
-        ```
-      * **Error (403 Forbidden):** If the task exists but does not belong to the authenticated user.
-        ```json
-        {
-            "success": false,
-            "message": "You are not authorized to access this task.",
-            "errors": []
-        }
-        ```
+```json
+{
+  "title": "First Task",
+  "description": "This is First task",
+  "status": "in_progress",
+  "expire_date": "12-10-2025"
+}
+```
 
-### 4\. Update an Existing Task (`PUT /api/tasks/{id}`)
+#### Success (201 Created):
 
-Updates an existing task by its ID, provided it belongs to the authenticated user.
+```json
+{
+   "success": true,
+   "message": "Successfully created task.",
+   "data": {
+    "id": 2,
+    "user_id": 2,
+    "assigned_by": null,
+    "title": "First Task",
+    "description": "This is First task",
+    "status": "in_progress",
+    "expire_date": "2025-10-12"
+  }
+}
+```
 
-  * **Authentication:** Required
-  * **Path Parameters:**
-      * `id` (integer, required): The ID of the task to update.
-  * **Request Body:** (Same as Create Task, but all fields are optional for partial updates)
-      * `title` (string, optional)
-      * `description` (string, optional)
-      * `status` (string, optional)
-      * `expire_date` (date, optional)
-  * **Example Request Body:**
-    ```json
-    {
-        "status": "completed",
-        "expire_date": "2025-07-20"
-    }
-    ```
-  * **Response:**
-      * **Success (200 OK):** The updated task.
-        ```json
-        {
-            "success": true,
-            "message": "Task updated successfully.",
-            "data": {
-                "id": 1,
-                "title": "Fix bug in login",
-                "description": "User login failing on production.",
-                "status": "completed",
-                "expire_date": "2025-07-20 00:00:00",
-                "created_at": "2025-07-17 10:00:00",
-                "assignee": { /* Assignee details */ },
-                "assigner": { /* Assigner details */ }
-            }
-        }
-        ```
-      * **Error (404 Not Found):** If the task does not exist.
-      * **Error (403 Forbidden):** If the task does not belong to the authenticated user.
-      * **Error (422 Unprocessable Entity):** If validation fails.
-      * **Error (500 Internal Server Error):** If the update operation fails for an unexpected reason.
-        ```json
-        {
-            "success": false,
-            "message": "Failed to update task.",
-            "errors": []
-        }
-        ```
-
-### 5\. Delete a Task (`DELETE /api/tasks/{id}`)
-
-Deletes a task by its ID, provided it belongs to the authenticated user.
-
-  * **Authentication:** Required
-  * **Path Parameters:**
-      * `id` (integer, required): The ID of the task to delete.
-  * **Response:**
-      * **Success (200 OK):** No data returned, only a success message.
-        ```json
-        {
-            "success": true,
-            "message": "Task deleted successfully.",
-            "data": []
-        }
-        ```
-      * **Error (404 Not Found):** If the task does not exist.
-      * **Error (403 Forbidden):** If the task does not belong to the authenticated user.
-      * **Error (500 Internal Server Error):** If the delete operation fails for an unexpected reason.
-        ```json
-        {
-            "success": false,
-            "message": "Failed to delete task.",
-            "errors": []
-        }
-        ```
-
------
-
-## ✅ Validation and Error Handling
-
-This API implements robust validation using Laravel's Form Requests (`StoreRequest`, `UpdateRequest`) and consistent error handling via the `CustomApiResponse` trait.
-
-### Validation Errors (422 Unprocessable Entity)
-
-When a request fails validation, the API will return a `422 Unprocessable Entity` status code with a standardized error structure:
+#### Error (422 Unprocessable Entity):
 
 ```json
 {
     "success": false,
     "errors": {
-        "field_name": [
-            "Error message for field_name 1",
-            "Error message for field_name 2"
+        "title": [
+            "The title field is required."
         ],
-        "another_field": [
-            "Error message for another_field"
+        "expire_date": [
+            "The expire date must be a date after or equal to today."
         ]
     }
 }
 ```
 
-**Common Validation Rules & Custom Messages:**
+---
 
-  * **`title`**: `required`, `string`, `max:255`
-  * **`description`**: `nullable`, `string`
-  * **`status`**: `nullable`, `string`, `Rule::in(TaskStatus::values())` (Ensures status is one of the predefined enum values like `pending`, `in_progress`, `completed`, `cancelled`). Custom message: `validation.enum`
-  * **`expire_date`**: `nullable`, `date`, `after_or_equal:today` (Ensures the date is not in the past relative to the server's current date, which is **Friday, July 18, 2025**). Custom message: `validation.after_or_equal`
+### 3. Get a Specific Task (`GET /api/task/{id}`)
 
-### Custom API Responses
+Retrieves a single task by its ID.
 
-The `CustomApiResponse` trait provides standardized JSON responses for consistency:
+* **Authentication:** Required
 
-  * **`successResponse($data, $message, $status)`**: Used for successful operations.
-    ```json
-    {
-        "success": true,
-        "message": "Operation successful.",
-        "data": { /* ... your data ... */ }
-    }
-    ```
-  * **`errorResponse($errors, $message, $status)`**: Used for errors (e.g., resource not found, unauthorized, internal server errors).
-    ```json
-    {
-        "success": false,
-        "message": "An error occurred.",
-        "errors": { /* ... error details ... */ }
-    }
-    ```
+#### Success:
 
-### Specific Error Scenarios Handled:
+```json
+{
+  "success": true,
+  "message": "Successfully fetched task records.",
+  "data": {
+    "id": 2,
+    "user_id": 2,
+    "assigned_by": null,
+    "title": "First Task Update",
+    "description": "This is First task update",
+    "status": "in_progress",
+    "expire_date": "2025-07-16",
+    "assignee": {
+      "id": 2,
+      "name": "Faysal Ibnea Hasan",
+      "email": "devfaysalhasan@gmail.com",
+      "email_verified_at": null,
+      "role": "user",
+      "is_active": 1,
+      "created_at": "2025-07-15T14:53:29.000000Z",
+      "updated_at": "2025-07-15T14:53:29.000000Z"
+    },
+    "assigner": null
+  }
+}
+```
 
-  * **404 Not Found**:
-      * `"User not found."`
-      * `"Task not found."`
-  * **403 Forbidden**:
-      * `"You are not authorized to access this task."`
-  * **500 Internal Server Error**:
-      * `"Failed to update task."`
-      * `"Failed to delete task."`
+#### Error (404 Not Found):
 
------
+```json
+{
+  "success": false,
+  "message": "Task not found.",
+  "errors": []
+}
+```
+
+#### Error (403 Forbidden):
+
+```json
+{
+  "success": false,
+  "message": "You are not authorized to access this task.",
+  "errors": []
+}
+```
+
+---
+
+### 4. Update an Existing Task (`PUT /api/task/{id}`)
+
+* **Authentication:** Required
+
+#### Request Body:
+
+```json
+{
+  "title": "First Task Update",
+  "description": "This is First task update",
+  "status": "completed"
+}
+```
+
+#### Success:
+
+```json
+{
+  "success": true,
+  "message": "Successfully updated task.",
+  "data": {
+    "id": 2,
+    "user_id": 2,
+    "assigned_by": null,
+    "title": "First Task Update",
+    "description": "This is First task update",
+    "status": "completed",
+    "expire_date": "16-07-2025"
+  }
+}
+```
+
+#### Errors:
+
+* **404 Not Found**
+* **403 Forbidden**
+* **422 Validation Error**
+* **500 Internal Server Error**
+
+```json
+{
+  "success": false,
+  "message": "Failed to update task.",
+  "errors": []
+}
+```
+
+---
+
+### 5. Delete a Task (`DELETE /api/task/{id}`)
+
+* **Authentication:** Required
+
+#### Success:
+
+```json
+{
+  "success": true,
+  "message": "Successfully deleted task.",
+  "data": []
+}
+```
+
+#### Errors:
+
+* **404 Not Found**
+* **403 Forbidden**
+* **500 Internal Server Error**
+
+```json
+{
+  "success": false,
+  "message": "Failed to delete task.",
+  "errors": []
+}
+```
+
+---
+
+## ✅ Validation and Error Handling
+
+Validation is done via Laravel Form Requests.
+
+### Example Validation Error:
+
+```json
+{
+  "success": false,
+  "errors": {
+    "field_name": ["Error message"]
+  }
+}
+```
+
+### Common Rules:
+
+* `title`: required, string, max:255
+* `description`: nullable
+* `status`: Rule::in(TaskStatus::values())
+* `expire_date`: after\_or\_equal\:today
+
+---
 
 ## 🛠️ Code Structure Overview
 
-  * **`App\Http\Controllers\Api\Task\TaskController.php`**: Handles incoming HTTP requests, orchestrates business logic, and returns API responses.
-      * Uses `CustomApiResponse` trait for consistent JSON responses.
-      * `getAuthUser()`: Helper to retrieve the authenticated user.
-      * `belongsToAuthUser()`: Helper to check task ownership.
-  * **`App\Http\Requests\Task\StoreRequest.php`**: Defines validation rules for creating new tasks.
-  * **`App\Http\Requests\Task\UpdateRequest.php`**: Defines validation rules for updating existing tasks.
-      * Both `StoreRequest` and `UpdateRequest` include:
-          * `authorize()`: Ensures only authenticated API users can make the request.
-          * `rules()`: Defines the validation rules for each input field.
-          * `messages()`: Provides custom error messages for specific validation failures.
-          * `failedValidation()`: Overrides the default Laravel behavior to return JSON validation errors for API requests.
-  * **`App\Http\Resources\TaskResource.php`**: Transforms `Task` model instances into a standardized JSON format for API responses, including relationships (assignee, assigner).
-  * **`App\Models\Task.php`**: Eloquent model representing tasks, with relationships to `User` for assigner and assignee.
-  * **`App\Traits\CustomApiResponse.php`**: A reusable trait providing helper methods for generating consistent success, error, and token responses across API controllers.
-  * **`App\Enums\TaskStatus.php`**: An enum defining the valid statuses for a task, ensuring data integrity. (Assuming you have this enum defined and used for `TaskStatus::values()`).
+* `Controllers\Api\Task\TaskController.php`
+* `Requests\Task\StoreRequest.php`
+* `Requests\Task\UpdateRequest.php`
+* `Resources\TaskResource.php`
+* `Models\Task.php`
+* `Traits\CustomApiResponse.php`
+* `Enums\TaskStatus.php`
+
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

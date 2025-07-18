@@ -34,7 +34,7 @@ class TaskController extends Controller
         if ($tasks->isEmpty()) {
             return $this->successResponse([], __('error.no_content'));
         }
-        return $this->successResponse(TaskResource::collection($tasks), __('success.fetched_success', ['attribute' => 'task']));
+        return $this->successResponse(TaskResource::collection($tasks), __('success.fetch_success', ['attribute' => 'task']));
     }
 
     public function store(StoreRequest $request)
