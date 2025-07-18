@@ -32,9 +32,9 @@
             </button>
             <div class="flex items-center space-x-2 cursor-pointer">
                 <span class="text-gray-800 font-medium text-sm hidden sm:block">{{ $page.props.auth.user.name}}</span>
-                <svg class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
+            </div>
+            <div class="flex items-center space-x-2 cursor-pointer">
+                <a href="/logout" class="text-gray-800 font-medium text-sm hidden sm:block">Logout</a>
             </div>
         </div>
     </header>

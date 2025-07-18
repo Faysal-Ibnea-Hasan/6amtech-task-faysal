@@ -4,7 +4,7 @@ import Sidebar from './Sidebar.vue';
 import Header from './Header.vue';
 
 const windowWidth = ref(window.innerWidth);
-const isSidebarOpen = ref(window.innerWidth >= 1024); // Start open on large screens
+const isSidebarOpen = ref(window.innerWidth >= 1024);
 
 const toggleSidebar = () => {
     isSidebarOpen.value = !isSidebarOpen.value;
@@ -13,9 +13,9 @@ const toggleSidebar = () => {
 const handleResize = () => {
     windowWidth.value = window.innerWidth;
     if (window.innerWidth < 1024) {
-        isSidebarOpen.value = false; // Close on small screens
+        isSidebarOpen.value = false;
     } else {
-        isSidebarOpen.value = true; // Open on large screens
+        isSidebarOpen.value = true;
     }
 };
 
@@ -35,7 +35,7 @@ onUnmounted(() => {
         <div
             :class="[
                 'flex-1 flex flex-col overflow-hidden transition-all duration-200 ease-in-out',
-                { 'ml-64': isSidebarOpen && windowWidth >= 1024 } // Add ml-64 only when sidebar is open and on large screens
+                { 'ml-64': isSidebarOpen && windowWidth >= 1024 }
             ]"
         >
             <Header @toggle-sidebar="toggleSidebar" />
