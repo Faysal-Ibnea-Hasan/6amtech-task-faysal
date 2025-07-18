@@ -2,7 +2,7 @@ import './bootstrap';
 import {createApp, h} from 'vue'
 import {createInertiaApp} from '@inertiajs/vue3'
 import '../css/app.css'
-import {Icon} from '@iconify/vue';
+import IconifyPlugin from './utils/iconify';
 
 
 createInertiaApp({
@@ -13,6 +13,7 @@ createInertiaApp({
     setup({el, App, props, plugin}) {
         createApp({render: () => h(App, props)})
             .use(plugin)
+            .use(IconifyPlugin)
             .mount(el)
     },
 })

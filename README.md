@@ -1,3 +1,19 @@
+## Credentials
+
+### Admin
+
+**email:** 6amtech@admin.com
+
+**password:** 6amtech6
+
+### Test Users
+
+**email:** devfaysalhasan@gmail.com
+
+**password:** 123456789
+
+* Note: you can register new user from **/register** route
+
 
 ## Setup Instructions
 

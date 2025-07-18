@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
+import {Icon} from "@iconify/vue";
 
 const props = defineProps({
     icon: String,
@@ -21,14 +22,11 @@ const props = defineProps({
 
 const page = usePage();
 const subMenuOpen = ref(false);
-
-// Normalize current URL and base path
 const normalize = (str) => str.replace(/^\/+|\/+$/g, '').toLowerCase();
 
 const currentPath = computed(() => normalize(page.url));
 const basePath = computed(() => normalize(props.href));
 
-// Automatically open submenu if current path starts with base path or matches a submenu
 const shouldOpen = computed(() => {
     if (!props.subItems.length) return false;
 
@@ -63,7 +61,7 @@ const handleClick = (e) => {
             @click="handleClick"
         >
             <div class="flex items-center">
-                <span class="iconify mr-3 text-lg" :data-icon="icon"></span>
+                <Icon :icon="icon" class="text-2xl p-1" />
                 <span class="text-sm font-medium">{{ text }}</span>
             </div>
             <svg

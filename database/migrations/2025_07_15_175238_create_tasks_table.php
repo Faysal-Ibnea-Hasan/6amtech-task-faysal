@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->foreignId('assigned_by')->nullable();
             $table->string('title');
             $table->string('description')->nullable();
-            $table->enum('status', ['pending', 'in_progress', 'completed', 'due', 'on_hold'])->nullable()->default('pending');
+            $table->enum('status', ['pending', 'in_progress', 'completed', 'due', 'on_hold'])->default('pending');
             $table->date('expire_date')->nullable();
             $table->timestamps();
         });
